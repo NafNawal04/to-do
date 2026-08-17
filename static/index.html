@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenTask Pro - Advanced To-Do & Focus System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-theme">
+    <div class="glass-bg-blur"></div>
+    
+    <!-- Authentication Overlay -->
+    <div class="auth-overlay" id="auth-overlay">
+        <div class="auth-panel glass-panel">
+            <div class="logo auth-logo">
+                <i class="fa-solid fa-compass-drafting brand-icon"></i>
+                <h2>ZenTask <span>Pro</span></h2>
+            </div>
+            <p class="auth-subtitle">Elevate your daily productivity and focus</p>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tab-login-btn">Login</button>
+                <button class="auth-tab-btn" id="tab-register-btn">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-user input-field-icon"></i>
+                        <input type="text" id="login-username" placeholder="Enter your username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-lock input-field-icon"></i>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <div class="auth-error-msg" id="login-error-msg"></div>
+                <button type="submit" class="btn btn-primary btn-large w-100">
+                    <i class="fa-solid fa-right-to-bracket"></i> Sign In
+                </button>
+            </form>
+
+            <!-- Register Form (Hidden by default) -->
+            <form id="register-form" class="hidden">
+                <div class="form-group">
+                    <label for="register-username">Choose Username</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-user input-field-icon"></i>
+                        <input type="text" id="register-username" placeholder="At least 3 characters" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-lock input-field-icon"></i>
+                        <input type="password" id="register-password" placeholder="At least 6 characters" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-lock input-field-icon"></i>
+                        <input type="password" id="register-confirm" placeholder="Repeat password" required>
+                    </div>
+                </div>
+                <div class="auth-error-msg" id="register-error-msg"></div>
+                <div class="auth-success-msg" id="register-success-msg"></div>
+                <button type="submit" class="btn btn-success btn-large w-100">
+                    <i class="fa-solid fa-user-plus"></i> Create Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="app-container hidden" id="app-container">
+        <!-- Sidebar / Dashboard Info -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <i class="fa-solid fa-compass-drafting brand-icon"></i>
+                <h2>ZenTask <span>Pro</span></h2>
+            </div>
+            
+            <div class="user-profile-widget" id="user-profile-widget">
+                <div class="avatar-circle">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-info-text">
+                    <span class="user-greeting">Welcome,</span>
+                    <span class="user-display-name" id="user-display-name">Username</span>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h3>Productivity Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-num" id="total-tasks">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" id="completed-tasks">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" id="completion-rate">0%</span>
+                        <span class="stat-label">Rate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pomodoro Timer Module -->
+            <div class="pomodoro-panel glass-card">
+                <h3><i class="fa-solid fa-clock timer-icon"></i> Pomodoro Focus</h3>
+                <div class="timer-display" id="timer-display">25:00</div>
+                <div class="timer-controls">
+                    <button id="timer-start" class="btn btn-primary"><i class="fa-solid fa-play"></i> Start</button>
+                    <button id="timer-pause" class="btn btn-secondary hidden"><i class="fa-solid fa-pause"></i> Pause</button>
+                    <button id="timer-reset" class="btn btn-outline"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                </div>
+                <div class="timer-modes">
+                    <span class="timer-mode active" data-time="1500">Focus</span>
+                    <span class="timer-mode" data-time="300">Short Break</span>
+                    <span class="timer-mode" data-time="900">Long Break</span>
+                </div>
+                <div class="active-focus-task" id="active-focus-task">
+                    No active focus task
+                </div>
+            </div>
+
+            <div class="settings-panel">
+                <button id="enable-notifications" class="btn btn-info w-100 mb-2">
+                    <i class="fa-solid fa-bell"></i> Enable Notifications
+                </button>
+                <button id="logout-btn" class="btn btn-outline w-100">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Task Area -->
+        <main class="main-content">
+            <!-- Top search and action bar -->
+            <header class="top-bar glass-panel">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search tasks by title or details...">
+                </div>
+                <div class="quick-stats-top">
+                    <button id="theme-toggle" class="btn btn-circle" title="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Grid: Form & Tasks list -->
+            <div class="content-grid">
+                <!-- Task Creator -->
+                <section class="task-form-section glass-panel">
+                    <h3 class="section-title"><i class="fa-solid fa-circle-plus"></i> Create New Task</h3>
+                    <form id="task-form">
+                        <div class="form-group">
+                            <label for="task-title">Task Title</label>
+                            <input type="text" id="task-title" placeholder="What needs to be done?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-desc">Description (Optional)</label>
+                            <textarea id="task-desc" placeholder="Describe the task details..." rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="task-priority">Priority</label>
+                                <select id="task-priority">
+                                    <option value="low">Low Priority</option>
+                                    <option value="medium" selected>Medium Priority</option>
+                                    <option value="high">High Priority</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="task-tag">Category / Tag</label>
+                                <input type="text" id="task-tag" placeholder="e.g. Work, Personal">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-due">Due Date & Time (Reminder Alert)</label>
+                            <input type="datetime-local" id="task-due">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-large w-100">
+                            <i class="fa-solid fa-plus"></i> Add Task to Board
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Tasks Listing & Filters -->
+                <section class="task-list-section glass-panel">
+                    <div class="task-list-header">
+                        <h3 class="section-title"><i class="fa-solid fa-list-check"></i> Tasks Board</h3>
+                        <div class="filter-controls">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="pending">Pending</button>
+                            <button class="filter-btn" data-filter="completed">Completed</button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic tags filter sub-bar -->
+                    <div class="tags-filter-bar" id="tags-filter-bar">
+                        <!-- Dynamic tags will be loaded here -->
+                    </div>
+
+                    <!-- Scrollable Tasks List -->
+                    <div class="tasks-container" id="tasks-container">
+                        <div class="empty-state">
+                            <i class="fa-solid fa-square-check empty-icon"></i>
+                            <p>No tasks found. Create one to get started!</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification Sound -->
+    <audio id="reminder-sound" src="https://assets.mixkit.co/active_storage/sfx/911/911-84.wav" preload="auto"></audio>
+    <audio id="pomodoro-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
+
+    <!-- Custom JS -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
