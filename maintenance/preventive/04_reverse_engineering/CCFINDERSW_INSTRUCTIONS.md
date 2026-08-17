@@ -6,20 +6,24 @@ hand/CPG-query — that `fetchTasks()`, `handleTaskSubmit()`,
 `toggleTaskStatus()`, and `deleteTask()` contain duplicated logic
 blocks (based on your Lab 5 setup: `C:\Users\MEHEDUL IT\CCFinderSW-1.0`).
 
-## 0. Check the language is supported by your install
-CCFinderSW needs a `<lang>_reserved.txt` and `<lang>_comment.txt` file
-for whatever `-l` value you pass (that's how it loaded `java_reserved.txt`
-/ `java_comment.txt` in your Lab 5 run). Check what's available:
-```
-dir "C:\Users\MEHEDUL IT\CCFinderSW-1.0\reserved"
-dir "C:\Users\MEHEDUL IT\CCFinderSW-1.0\comment"
-```
-Look for a JavaScript entry (likely `javascript_reserved.txt` /
-`javascript_comment.txt`, possibly named `js_...` instead — use
-whatever prefix actually appears in both folders as your `-l` value). If
-neither folder has a JS entry at all, this version of your install
-doesn't support JavaScript out of the box — in that case let me know
-what languages *are* listed and I'll help pick a fallback.
+## 0. Language: no native JavaScript support in this install
+Checked both folders directly — this CCFinderSW-1.0 install ships rule
+files for: `java, cpp, csharp, c, cobol, go, haskell, perl, php, python,
+ruby, rust, scala, st, vba`. No `javascript`/`js`/`ecma` entry at all.
+
+**Fallback: use `-l java`.** Not because `app.js` is Java, but because
+CCFinderSW's language rules are really just "how to strip comments" +
+"which tokens count as reserved keywords" — Java's curly-brace blocks,
+`;` statement terminators, and `//` / `/* */` comment styles are
+structurally close to JavaScript's, so the tokenizer won't mis-parse the
+file's shape. JS-only keywords (`async`, `await`, `const`, `let`) just
+won't be recognized as "reserved" and get treated as plain identifiers
+instead — that doesn't break clone detection for our purpose, since
+we're looking for literally-repeated blocks (same identifiers, same
+shape), not renamed-variable near-clones where reserved-word
+canonicalization would matter more. `python` would be the wrong choice
+here specifically because its indentation-based blocks and `#` comments
+don't match JS's brace/semicolon/`//` syntax at all.
 
 ## 1. Detection command
 Unlike a Java project (a whole `src` folder), we only need one file, but
@@ -32,10 +36,8 @@ is roughly 10 lines / ~30-50 tokens, so start lower (`-t 30`) or you'll
 likely get zero results.
 
 ```
-"C:\Users\MEHEDUL IT\CCFinderSW-1.0\bin\CCFinderSW.bat" D -d "C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\static" -l javascript -o "C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\preventive\04_reverse_engineering\appjs_clones" -ccfsw pair -t 30
+"C:\Users\MEHEDUL IT\CCFinderSW-1.0\bin\CCFinderSW.bat" D -d "C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\static" -l java -o "C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\preventive\04_reverse_engineering\appjs_clones" -ccfsw pair -t 30
 ```
-(replace `javascript` with whatever the correct `-l` value turned out to
-be from step 0)
 
 This is a **single step** — no separate "print" pass needed (the `P`
 mode in the tool's own help text is marked "future works", i.e. not
