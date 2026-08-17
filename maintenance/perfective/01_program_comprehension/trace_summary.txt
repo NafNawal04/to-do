@@ -1,0 +1,18 @@
+Top 15 longest spans (by duration, microseconds):
+     7548.0 us  get_tasks (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\crud.py:25)
+     7004.0 us  Query.all (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\query.py:2689)
+     5787.0 us  Query._iter (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\query.py:2859)
+     5657.5 us  Session.execute (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\session.py:2313)
+     5649.5 us  Session._execute_internal (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\session.py:2141)
+     5430.5 us  AbstractORMCompileState.orm_execute_statement (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\context.py:296)
+     5213.1 us  Connection.execute (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1377)
+     5208.7 us  ClauseElement._execute_on_connection (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\sql\elements.py:517)
+     5204.4 us  Connection._execute_clauseelement (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1593)
+     2835.5 us  ClauseElement._compile_w_cache (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\sql\elements.py:679)
+     2349.3 us  Connection._execute_context (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1793)
+     2266.7 us  Connection._exec_single_context (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1852)
+     2106.9 us  DefaultDialect.do_execute (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\default.py:951)
+     2105.3 us  sqlite3.Cursor.execute
+     1440.3 us  CompilerElement._compiler (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\sql\elements.py:317)
+
+Total wall time of traced call: 7548.0 us (7.55 ms)

@@ -1,1 +1,8 @@
 .scannerwork/
+
+# Regenerable perfective-maintenance benchmark artifacts (re-run
+# seed_and_trace.py / profile scripts to reproduce - see
+# maintenance/perfective/ reports for the extracted, committed summaries)
+maintenance/perfective/**/bench.db
+maintenance/perfective/**/*_trace.json
+maintenance/perfective/**/*.prof

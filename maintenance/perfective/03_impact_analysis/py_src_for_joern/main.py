@@ -10,7 +10,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from sqlalchemy import inspect, text
 from sqlalchemy.orm import Session
-from loguru import logger
 import models
 import schemas
 import crud
@@ -29,30 +28,9 @@ def ensure_legacy_columns():
             connection.execute(text("ALTER TABLE users ADD COLUMN email_verified BOOLEAN NOT NULL DEFAULT 0"))
 
 
-def ensure_task_indexes():
-    """Retrofit indexes onto an existing tasks table. create_all() only
-    adds indexes for tables it creates fresh - an existing todo.db from
-    before this perfective-maintenance change needs them added explicitly."""
-    inspector = inspect(engine)
-    if "tasks" not in inspector.get_table_names():
-        return
-
-    existing_index_columns = {
-        col
-        for idx in inspector.get_indexes("tasks")
-        for col in idx["column_names"]
-    }
-    for column in ("user_id", "status", "priority", "tag"):
-        if column not in existing_index_columns:
-            with engine.begin() as connection:
-                connection.execute(text(f"CREATE INDEX IF NOT EXISTS ix_tasks_{column} ON tasks ({column})"))
-            logger.info("perfective maintenance: added missing index on tasks.{}", column)
-
-
 # Create database tables
 ensure_legacy_columns()
 models.Base.metadata.create_all(bind=engine)
-ensure_task_indexes()
 
 app = FastAPI(title="To-Do Premium App API", description="Backend APIs with SQLite JWT Authentication")
 

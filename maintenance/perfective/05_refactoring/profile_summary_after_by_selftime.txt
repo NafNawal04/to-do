@@ -1,0 +1,23 @@
+         209836 function calls (207999 primitive calls) in 0.245 seconds
+
+   Ordered by: internal time
+   List reduced from 811 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       61    0.063    0.001    0.063    0.001 {method 'execute' of 'sqlite3.Cursor' objects}
+    12517    0.024    0.000    0.076    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\loading.py:1068(_instance)
+    12517    0.019    0.000    0.019    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\loading.py:1329(_populate_full)
+       60    0.018    0.000    0.018    0.000 {method 'fetchall' of 'sqlite3.Cursor' objects}
+    12517    0.012    0.000    0.012    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\state.py:201(__init__)
+    12517    0.011    0.000    0.026    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\instrumentation.py:501(new_instance)
+       60    0.008    0.000    0.026    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\result.py:576(_raw_all_rows)
+        1    0.006    0.006    0.246    0.246 <string>:13(run)
+    12517    0.006    0.000    0.011    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\state.py:539(_cleanup)
+      120    0.004    0.000    0.106    0.001 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\loading.py:208(chunks)
+       60    0.004    0.000    0.116    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\result.py:582(_allrows)
+    12517    0.003    0.000    0.005    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\identity.py:262(_fast_discard)
+   540/60    0.003    0.000    0.006    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\sql\cache_key.py:221(_gen_cache_key)
+    12517    0.003    0.000    0.003    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\identity.py:207(_add_unpresent)
+    13120    0.003    0.000    0.003    0.000 {built-in method __new__ of type object at 0x00007FFF2AE5AD90}
+
+

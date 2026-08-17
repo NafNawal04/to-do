@@ -1,0 +1,28 @@
+         209836 function calls (207999 primitive calls) in 0.301 seconds
+
+   Ordered by: cumulative time
+   List reduced from 811 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.007    0.007    0.303    0.303 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\perfective\04_reverse_engineering\profile_get_tasks.py:37(run_representative_queries)
+       60    0.001    0.000    0.285    0.005 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\crud.py:25(get_tasks)
+       60    0.001    0.000    0.237    0.004 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\query.py:2689(all)
+       60    0.000    0.000    0.121    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\result.py:1818(all)
+       60    0.005    0.000    0.121    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\result.py:582(_allrows)
+       60    0.000    0.000    0.116    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\query.py:2859(_iter)
+       60    0.000    0.000    0.113    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\session.py:2313(execute)
+       60    0.001    0.000    0.113    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\session.py:2141(_execute_internal)
+       60    0.000    0.000    0.113    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\result.py:1732(_fetchall_impl)
+       60    0.001    0.000    0.113    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\result.py:2333(_fetchall_impl)
+      120    0.004    0.000    0.111    0.001 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\loading.py:208(chunks)
+       60    0.000    0.000    0.109    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\context.py:296(orm_execute_statement)
+       60    0.000    0.000    0.104    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1377(execute)
+       60    0.000    0.000    0.104    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\sql\elements.py:517(_execute_on_connection)
+       60    0.001    0.000    0.104    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1593(_execute_clauseelement)
+       60    0.000    0.000    0.091    0.002 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1793(_execute_context)
+       60    0.000    0.000    0.089    0.001 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1852(_exec_single_context)
+       60    0.000    0.000    0.087    0.001 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\engine\default.py:951(do_execute)
+       61    0.087    0.001    0.087    0.001 {method 'execute' of 'sqlite3.Cursor' objects}
+    12517    0.025    0.000    0.080    0.000 C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\.venv\Lib\site-packages\sqlalchemy\orm\loading.py:1068(_instance)
+
+

@@ -20,14 +20,13 @@ class Task(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False, index=True)
     description = Column(String, nullable=True)
-    priority = Column(String, default="medium", nullable=False, index=True)  # low, medium, high
-    status = Column(String, default="pending", nullable=False, index=True)   # pending, completed
-    tag = Column(String, nullable=True, index=True)                         # e.g. Work, Personal
+    priority = Column(String, default="medium", nullable=False)  # low, medium, high
+    status = Column(String, default="pending", nullable=False)   # pending, completed
+    tag = Column(String, nullable=True)                          # e.g. Work, Personal
     due_date = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     completed_at = Column(DateTime, nullable=True)
-
+    
     # Establish ownership relations
-    # Indexed: get_tasks()/get_task() filter on user_id on every call.
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     owner = relationship("User", back_populates="tasks")
