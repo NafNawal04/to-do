@@ -2,7 +2,7 @@
 #option
 -d	C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\preventive\04_reverse_engineering\js_as_java
 -l	java
--o	C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\preventive\04_reverse_engineering\test_appjs_clones
+-o	C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\preventive\04_reverse_engineering\appjs_clones
 -t	30
 -charset	UTF-8
 #rule_constructor
