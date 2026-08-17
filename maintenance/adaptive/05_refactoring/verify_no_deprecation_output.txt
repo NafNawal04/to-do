@@ -1,0 +1,7 @@
+Targeted deprecation warnings remaining (should be 0): 0
+
+Other, out-of-scope warnings (not part of this adaptation): 2
+  - PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 
+  - PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 
+
+PASS: datetime.utcnow() / declarative_base deprecation warnings are gone.
