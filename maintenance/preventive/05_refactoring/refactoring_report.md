@@ -63,12 +63,22 @@ function-specific bit," not the duplicated auth/error-handling logic
 that justified this branch in the first place. That risky logic now
 lives in exactly one place.
 
-## SonarQube (do this part yourself)
-1. Push this branch and open a PR into `main` (same `SONAR_TOKEN`
-   secret and `.github/workflows/build.yml` as the other branches — no
-   new setup needed), or run `npx @sonar/scan` locally.
-2. Check the file-level view for `static/app.js` specifically —
-   duplicated lines % should be lower than before this branch, and no
-   new bugs/code smells should appear (the helper itself is a small,
-   plain function, shouldn't trip any complexity rules).
-3. Screenshot the result, save here as `sonarqube_result.png`.
+## SonarQube (done)
+Ran locally via `npx @sonar/scan`, commit `a382f21` (tip of
+`preventive/app-js-fetch-dedup`, since merged into `main`). See
+`sonarqube_result.png`.
+
+| Metric | Corrective-branch baseline | This branch |
+|---|---|---|
+| Security | 1 open issue | 1 open issue |
+| Reliability | 13 open issues | **4** open issues |
+| Maintainability | 32 open issues | **16** open issues |
+| Duplications | 27.7% (pre-`sonar.exclusions` fix) | **0.0%** |
+
+Duplication dropping to 0.0% is the standout number — partly the
+`apiRequest()` dedup itself, partly the `sonar.exclusions=maintenance/**`
+fix from the adaptive branch finally taking full effect (no more
+`maintenance/` snapshot copies inflating the metric). Reliability and
+Maintainability issue counts roughly halved too. No new bugs/smells
+introduced by the helper itself — it's small and low-complexity, as
+expected.
