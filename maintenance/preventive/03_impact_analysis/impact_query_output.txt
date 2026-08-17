@@ -1,0 +1,81 @@
+executing maintenance\preventive\03_impact_analysis\impact_query.sc
+Creating project `appjs.cpg.bin` for CPG at `maintenance/preventive/03_impact_analysis/appjs.cpg.bin`
+Creating working copy of CPG to be safe
+Loading base CPG from: C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\appjs.cpg.bin\cpg.bin.tmp
+[INFO ] initialising from existing storage (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\appjs.cpg.bin\cpg.bin.tmp)
+Overlay dataflowOss already exists - skipping
+The graph has been modified. You may want to use the `save` command to persist changes to disk.  All changes will also be saved collectively on exit
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptInheritanceNamePass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptInheritanceNamePass completed in 18 ms (72% on mutations). 0 + 0 changes committed from 0 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.jssrc2cpg.ConstClosurePass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.jssrc2cpg.ConstClosurePass completed in 46 ms (3% on mutations). 0 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptImportResolverPass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptImportResolverPass completed in 1 ms (84% on mutations). 0 + 0 changes committed from 0 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptTypeRecovery
+[INFO ] Pass io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptTypeRecovery completed in 282 ms (7% on mutations). 1412 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptTypeRecovery
+[INFO ] Pass io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptTypeRecovery completed in 102 ms (9% on mutations). 1338 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptTypeHintCallLinker
+[INFO ] Pass io.joern.x2cpg.frontendspecific.jssrc2cpg.JavaScriptTypeHintCallLinker completed in 34 ms (15% on mutations). 1 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.jssrc2cpg.ObjectPropertyCallLinker
+[INFO ] Pass io.joern.x2cpg.frontendspecific.jssrc2cpg.ObjectPropertyCallLinker completed in 11 ms (12% on mutations). 0 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.passes.callgraph.NaiveCallLinker
+[INFO ] Pass io.joern.x2cpg.passes.callgraph.NaiveCallLinker completed in 11 ms (7% on mutations). 0 + 0 changes committed from 1 parts.
+=== Total functions defined in app.js ===
+63
+
+=== Call fan-out per function (how many things each function calls - higher = more central/risky) ===
+130  :program
+ 83  <lambda>13
+ 71  handleTaskSubmit
+ 56  handleRegister
+ 45  handleLogin
+ 42  renderTagsFilterBar
+ 38  <lambda>27
+ 32  fetchTasks
+ 32  toggleTaskStatus
+ 31  setupEventListeners
+ 31  toggleTheme
+ 29  initTheme
+ 24  renderTasks
+ 23  deleteTask
+ 23  <lambda>25
+
+=== fetch() call sites (the duplicated pattern) ===
+line 160 in checkAuthSession: fetch('/api/auth/me', {
+            headers: getAuthHeaders(
+line 196 in handleLogin: fetch('/api/auth/login', {
+            method: 'POST',
+     
+line 229 in handleRegister: fetch('/api/auth/register', {
+            method: 'POST',
+  
+line 270 in fetchTasks: fetch(url, {
+            headers: getAuthHeaders()
+        }
+line 368 in handleTaskSubmit: fetch('/api/tasks', {
+            method: 'POST',
+          
+line 395 in toggleTaskStatus: fetch(`/api/tasks/${id}`, {
+            method: 'PUT',
+     
+line 420 in deleteTask: fetch(`/api/tasks/${id}`, {
+            method: 'DELETE',
+  
+
+=== Every function that calls handleLogout() (401-handling duplication) ===
+fetchTasks
+handleTaskSubmit
+toggleTaskStatus
+deleteTask
+
+=== Every function that calls fetchTasks() (refresh-after-mutation duplication) ===
+<lambda>5
+showDashboard
+handleTaskSubmit
+toggleTaskStatus
+deleteTask
+<lambda>25
+[INFO ] writing to storage at `C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\appjs.cpg.bin\cpg.bin.tmp`
+[INFO ] closed graph at C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\appjs.cpg.bin\cpg.bin.tmp
+closing/saving project `appjs.cpg.bin`

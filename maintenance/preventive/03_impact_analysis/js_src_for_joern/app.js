@@ -64,26 +64,6 @@ function getAuthHeaders() {
     return token ? { 'Authorization': `Bearer ${token}` } : {};
 }
 
-// Shared authenticated-fetch helper. Centralizes the pattern that used
-// to be duplicated across fetchTasks/handleTaskSubmit/toggleTaskStatus/
-// deleteTask: merge auth headers in, log out on a 401, and throw on any
-// other non-OK response. Returns null (after already calling
-// handleLogout()) on a 401 so callers can just `if (!response) return;`.
-async function apiRequest(url, { errorMessage = 'Request failed', headers, ...options } = {}) {
-    const response = await fetch(url, {
-        ...options,
-        headers: { ...headers, ...getAuthHeaders() }
-    });
-
-    if (response.status === 401) {
-        handleLogout();
-        return null;
-    }
-
-    if (!response.ok) throw new Error(errorMessage);
-    return response;
-}
-
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -287,9 +267,16 @@ async function fetchTasks(search = '') {
         if (search) {
             url += `?search=${encodeURIComponent(search)}`;
         }
-        const response = await apiRequest(url, { errorMessage: 'Failed to load tasks' });
-        if (!response) return;
-
+        const response = await fetch(url, {
+            headers: getAuthHeaders()
+        });
+        
+        if (response.status === 401) {
+            handleLogout();
+            return;
+        }
+        
+        if (!response.ok) throw new Error('Failed to load tasks');
         tasks = await response.json();
         renderTasks();
         updateStats();
@@ -378,14 +365,22 @@ async function handleTaskSubmit(e) {
     const due_date = document.getElementById('task-due').value || null;
     
     try {
-        const response = await apiRequest('/api/tasks', {
+        const response = await fetch('/api/tasks', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, description, priority, tag, due_date }),
-            errorMessage: 'Task creation failed'
+            headers: { 
+                'Content-Type': 'application/json',
+                ...getAuthHeaders()
+            },
+            body: JSON.stringify({ title, description, priority, tag, due_date })
         });
-        if (!response) return;
-
+        
+        if (response.status === 401) {
+            handleLogout();
+            return;
+        }
+        
+        if (!response.ok) throw new Error('Task creation failed');
+        
         taskForm.reset();
         fetchTasks();
     } catch (err) {
@@ -397,14 +392,21 @@ async function handleTaskSubmit(e) {
 async function toggleTaskStatus(id, currentStatus) {
     const newStatus = currentStatus === 'completed' ? 'pending' : 'completed';
     try {
-        const response = await apiRequest(`/api/tasks/${id}`, {
+        const response = await fetch(`/api/tasks/${id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status: newStatus }),
-            errorMessage: 'Update failed'
+            headers: { 
+                'Content-Type': 'application/json',
+                ...getAuthHeaders()
+            },
+            body: JSON.stringify({ status: newStatus })
         });
-        if (!response) return;
-
+        
+        if (response.status === 401) {
+            handleLogout();
+            return;
+        }
+        
+        if (!response.ok) throw new Error('Update failed');
         fetchTasks();
     } catch (err) {
         console.error('Error updating task:', err);
@@ -415,12 +417,17 @@ async function toggleTaskStatus(id, currentStatus) {
 async function deleteTask(id) {
     if (!confirm('Are you sure you want to delete this task?')) return;
     try {
-        const response = await apiRequest(`/api/tasks/${id}`, {
+        const response = await fetch(`/api/tasks/${id}`, {
             method: 'DELETE',
-            errorMessage: 'Deletion failed'
+            headers: getAuthHeaders()
         });
-        if (!response) return;
-
+        
+        if (response.status === 401) {
+            handleLogout();
+            return;
+        }
+        
+        if (!response.ok) throw new Error('Deletion failed');
         fetchTasks();
     } catch (err) {
         console.error('Error deleting task:', err);

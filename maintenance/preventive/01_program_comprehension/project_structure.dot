@@ -1,0 +1,41 @@
+// Program Comprehension: project-wide module dependency graph, sized
+// roughly by lines of code, to spot tangled/central/risky modules.
+digraph project_structure {
+    rankdir=TB;
+    node [shape=box, style="rounded,filled", fillcolor=white, fontname="Segoe UI"];
+    edge [fontname="Segoe UI", fontsize=10];
+
+    subgraph cluster_backend {
+        label="Backend (Python)"; style=filled; fillcolor="#e8f0fe";
+        main_py     [label="main.py\n134 lines\n(FastAPI endpoints)"];
+        crud_py     [label="crud.py\n74 lines"];
+        auth_py     [label="auth.py\n67 lines"];
+        schemas_py  [label="schemas.py\n53 lines"];
+        models_py   [label="models.py\n32 lines"];
+        database_py [label="database.py\n19 lines"];
+    }
+    subgraph cluster_frontend {
+        label="Frontend (static/)"; style=filled; fillcolor="#fce8e6";
+        app_js    [label="app.js\n653 lines\nNO framework, NO tests\nvanilla DOM + fetch()", fillcolor=salmon];
+        index_html [label="index.html\n240 lines"];
+        style_css [label="style.css\n869 lines"];
+    }
+
+    main_py -> crud_py;
+    main_py -> auth_py;
+    main_py -> schemas_py;
+    main_py -> database_py;
+    main_py -> app_js [label="serves as\nstatic file", style=dashed];
+    main_py -> index_html [label="serves as\nstatic file", style=dashed];
+    crud_py -> models_py;
+    crud_py -> schemas_py;
+    crud_py -> auth_py;
+    auth_py -> models_py;
+    auth_py -> database_py;
+    models_py -> database_py;
+    index_html -> app_js [label="<script src>"];
+    index_html -> style_css [label="<link>"];
+    app_js -> main_py [label="fetch('/api/...')\n x 6 endpoints", color="#d32f2f", fontcolor="#d32f2f"];
+
+    note [shape=note, fillcolor="#fff9c4", label="app.js is the largest, most\nself-contained file in the project\n(no imports/exports - single\nglobal-scope script) and the ONLY\nfile with zero test coverage AND\nno static analysis tooling applied\nto it (SonarQube/CCFinderSW runs\nhave focused on the Python side\nso far) - flagged here for\npreventive attention."];
+}
