@@ -1,0 +1,33 @@
+Source path:... C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\corrective\01_program_comprehension\reproduce_bug.py
+Starting var:.. db = <sqlalchemy.orm.session.Session object at 0x00000270549C0EC0>
+Starting var:.. user_id = 1
+Starting var:.. search_term = '_'
+23:43:09.227494 call        64 def run_search(db, user_id, search_term):
+23:43:09.235219 line        65     return crud.get_tasks(db, user_id=user_id, search=search_term)
+    Source path:... C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\crud.py
+    Starting var:.. db = <sqlalchemy.orm.session.Session object at 0x00000270549C0EC0>
+    Starting var:.. user_id = 1
+    Starting var:.. status = None
+    Starting var:.. priority = None
+    Starting var:.. tag = None
+    Starting var:.. search = '_'
+    23:43:09.236069 call        20 def get_tasks(db: Session, user_id: int, status: str = None, priority: str = None, tag: str = None, search: str = None):
+    23:43:09.242935 line        21     query = db.query(models.Task).filter(models.Task.user_id == user_id)
+    New var:....... query = <sqlalchemy.orm.query.Query object at 0x00000270549FB610>
+    23:43:09.245663 line        22     if status:
+    23:43:09.247329 line        24     if priority:
+    23:43:09.248373 line        26     if tag:
+    23:43:09.249344 line        28     if search:
+    23:43:09.250093 line        29         query = query.filter(
+    23:43:09.250797 line        30             (models.Task.title.ilike(f"%{search}%")) | 
+    23:43:09.252299 line        31             (models.Task.description.ilike(f"%{search}%"))
+    23:43:09.253720 line        30             (models.Task.title.ilike(f"%{search}%")) | 
+    23:43:09.254997 line        29         query = query.filter(
+    Modified var:.. query = <sqlalchemy.orm.query.Query object at 0x00000270549FB750>
+    23:43:09.256024 line        33     return query.order_by(models.Task.created_at.desc()).all()
+    23:43:09.273528 return      33     return query.order_by(models.Task.created_at.desc()).all()
+    Return value:.. [<models.Task object at 0x0000027054AACC30>, <mo...140>, <models.Task object at 0x0000027054A22580>]
+Source path:... C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\corrective\01_program_comprehension\reproduce_bug.py
+23:43:09.275298 return      65     return crud.get_tasks(db, user_id=user_id, search=search_term)
+Return value:.. [<models.Task object at 0x0000027054AACC30>, <mo...140>, <models.Task object at 0x0000027054A22580>]
+Elapsed time: 00:00:00.050675

@@ -17,6 +17,11 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 # Task Operations (Isolated by user_id)
+def _escape_like(term: str) -> str:
+    """Escape SQL LIKE/ILIKE wildcard characters so they are matched
+    literally instead of being treated as wildcards (% and _)."""
+    return term.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+
 def get_tasks(db: Session, user_id: int, status: str = None, priority: str = None, tag: str = None, search: str = None):
     query = db.query(models.Task).filter(models.Task.user_id == user_id)
     if status:
@@ -26,9 +31,10 @@ def get_tasks(db: Session, user_id: int, status: str = None, priority: str = Non
     if tag:
         query = query.filter(models.Task.tag == tag)
     if search:
+        pattern = f"%{_escape_like(search)}%"
         query = query.filter(
-            (models.Task.title.ilike(f"%{search}%")) | 
-            (models.Task.description.ilike(f"%{search}%"))
+            (models.Task.title.ilike(pattern, escape="\\")) |
+            (models.Task.description.ilike(pattern, escape="\\"))
         )
     return query.order_by(models.Task.created_at.desc()).all()
 
