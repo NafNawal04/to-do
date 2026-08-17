@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 import models
 import schemas
 import auth
-import datetime
+from datetime import datetime, timezone
 
 # User Operations
 def get_user_by_username(db: Session, username: str):
@@ -44,7 +44,7 @@ def create_task(db: Session, task: schemas.TaskCreate, user_id: int):
         due_date=task.due_date,
         status="pending",
         user_id=user_id,
-        created_at=datetime.datetime.utcnow()
+        created_at=datetime.now(timezone.utc)
     )
     db.add(db_task)
     db.commit()
@@ -57,7 +57,7 @@ def update_task(db: Session, db_task: models.Task, task_update: schemas.TaskUpda
     # If task status changes, set completed_at
     if "status" in update_data:
         if update_data["status"] == "completed" and db_task.status != "completed":
-            db_task.completed_at = datetime.datetime.utcnow()
+            db_task.completed_at = datetime.now(timezone.utc)
         elif update_data["status"] == "pending" and db_task.status != "pending":
             db_task.completed_at = None
             
