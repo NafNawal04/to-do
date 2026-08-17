@@ -17,6 +17,28 @@ Full trace: `pysnooper_trace_output_after_fix.txt`. The fix in
 `ilike()` calls) resolves the bug for both wildcard characters, not just
 the one that was originally reported.
 
-## SonarQube (do this part yourself)
-See `SONARQUBE_INSTRUCTIONS.md` — confirm the fix introduced no new
-code smells/bugs on branch `fix/search-like-wildcard-escape`.
+## SonarQube (done)
+Ran locally via `npx @sonar/scan -D sonar.token=...` against commit
+`3a8e8e4` (tip of `fix/search-like-wildcard-escape` at the time). See
+`sonarqube_result.png`.
+
+This was the **first-ever analysis** of the project (no prior baseline to
+diff against), so it reports whole-project health rather than a
+before/after delta for this one fix:
+
+| Metric | Result |
+|---|---|
+| Security | 1 open issue (rated B) |
+| Reliability | 13 open issues (rated C) |
+| Maintainability | 32 open issues (rated A) |
+| Coverage | 0.0% (no test suite exists yet) |
+| Duplications | 27.7% |
+
+None of these are attributable to the `crud.py` fix itself — the change
+is a 3-line helper function plus two `escape=` arguments, and
+`_escape_like()` is well within normal complexity/duplication thresholds.
+The 46 total open issues are pre-existing project-wide debt (most likely
+concentrated in `main.py`'s endpoint handlers and the total absence of
+tests), not something this fix introduced. This scan now serves as the
+baseline for future maintenance cells (e.g. Preventive Maintenance, which
+explicitly targets exactly this kind of complexity/duplication backlog).
