@@ -25,43 +25,34 @@ canonicalization would matter more. `python` would be the wrong choice
 here specifically because its indentation-based blocks and `#` comments
 don't match JS's brace/semicolon/`//` syntax at all.
 
-## 1. Detection command
-Unlike a Java project (a whole `src` folder), we only need one file, but
-`-d` requires a **directory**, not a single file — point it at
-`static/` (it holds `app.js`, `index.html`, `style.css`; CCFinderSW will
-only tokenize the files matching `-l`, so the other two are harmless to
-have alongside it). Also: your Lab 5 threshold was `-t 100` tokens,
-tuned for a much bigger Java codebase — our target duplicate block here
-is roughly 10 lines / ~30-50 tokens, so start lower (`-t 30`) or you'll
-likely get zero results.
+## 1. First attempt failed — file-extension filtering
+Pointing `-d` straight at `static/` with `-l java` produces
+`No Target File` / `LOC = 0 Token = 0`, even with the java ruleset
+correctly loaded. Reason: CCFinderSW's directory scan filters candidate
+files by **extension** matching the language (`*.java` for `-l java`),
+not just by which ruleset you pass — `app.js`'s `.js` extension gets
+skipped outright regardless of `-l`.
 
+**Fix:** copy `app.js` into its own folder as `app.java` (content
+identical, extension changed so the scanner picks it up — already done,
+see `js_as_java/app.java` in this folder) and point `-d` at that folder
+instead of `static/`.
+
+## 2. Detection command (verified working)
 ```
-"C:\Users\MEHEDUL IT\CCFinderSW-1.0\bin\CCFinderSW.bat" D -d "C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\static" -l java -o "C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\preventive\04_reverse_engineering\appjs_clones" -ccfsw pair -t 30
+"C:\Users\MEHEDUL IT\CCFinderSW-1.0\bin\CCFinderSW.bat" D -d "C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\preventive\04_reverse_engineering\js_as_java" -l java -o "C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\maintenance\preventive\04_reverse_engineering\appjs_clones" -ccfsw pair -t 30
 ```
+Already run once to confirm it works: `LOC = 653, Token = 4235`,
+**132 clone pairs found** — result saved as `appjs_clones_ccfsw.txt` in
+this folder (see `clone_detection_report.md` for the interpretation).
+Feel free to re-run it yourself for your own terminal screenshot — same
+command, same result, since nothing about the input changed.
 
 This is a **single step** — no separate "print" pass needed (the `P`
 mode in the tool's own help text is marked "future works", i.e. not
-implemented in this version). The `-o` path above is absolute and points
-straight into this folder, so the two output files land here directly:
-- `appjs_clones.ccfxd` — the raw clone-data file
-- `appjs_clones_ccfsw.txt` — the human-readable clone-pair report (same
-  naming pattern as your Lab 5 `output2_ccfsw.txt`)
-
-If `-t 30` finds nothing, try `-t 20`; if it's too noisy (matches on
-trivial boilerplate unrelated to the fetch/401 pattern), raise it back
-up gradually (e.g. `-t 40`, `-t 50`).
+implemented in this version).
 
 ## What to save here
-Both output files land here automatically from the `-o` path above —
-just leave them in place. Also take a screenshot of the terminal output
-(the run summary + a bit of the report) and save it as
-`ccfindersw_result.png`.
-
-## What to expect
-Given the Impact Analysis findings, clone pairs should center on lines
-~264-435 of `app.js` (`fetchTasks`, `handleTaskSubmit`,
-`toggleTaskStatus`, `deleteTask`) — specifically the
-`if (response.status === 401) { handleLogout(); return; } if (!response.ok) throw ...; fetchTasks();`
-shape repeated across those 4 functions. A secondary, smaller clone pair
-is possible around lines 620-645 (`initTheme` / `toggleTheme`), though
-that one may fall under the token threshold.
+- Already present: `appjs_clones_ccfsw.txt` (the clone-pair report).
+- Still needed from you: a screenshot of your own terminal run (re-run
+  the command above) saved as `ccfindersw_result.png`.
