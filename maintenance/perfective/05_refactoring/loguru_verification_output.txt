@@ -1,0 +1,7 @@
+[32m2026-08-18 03:09:17.569[0m | [1mINFO    [0m | [36mmain[0m:[36mensure_task_indexes[0m:[36m49[0m - [1mperfective maintenance: added missing index on tasks.user_id[0m
+[32m2026-08-18 03:09:17.611[0m | [1mINFO    [0m | [36mmain[0m:[36mensure_task_indexes[0m:[36m49[0m - [1mperfective maintenance: added missing index on tasks.status[0m
+[32m2026-08-18 03:09:17.652[0m | [1mINFO    [0m | [36mmain[0m:[36mensure_task_indexes[0m:[36m49[0m - [1mperfective maintenance: added missing index on tasks.priority[0m
+[32m2026-08-18 03:09:17.692[0m | [1mINFO    [0m | [36mmain[0m:[36mensure_task_indexes[0m:[36m49[0m - [1mperfective maintenance: added missing index on tasks.tag[0m
+
+Re-running startup on the now-retrofitted DB (should be silent):
+(no INFO lines above this = correctly silent on 2nd run)
