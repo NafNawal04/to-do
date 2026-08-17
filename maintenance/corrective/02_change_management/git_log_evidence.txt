@@ -1,0 +1,2 @@
+f4dc3cf fix: escape LIKE wildcard characters in task search
+6710b0b Initial TO-DO app implementation

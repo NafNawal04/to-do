@@ -1,0 +1,48 @@
+executing maintenance\corrective\03_impact_analysis\impact_query.sc
+Creating project `todo.cpg.bin1` for CPG at `maintenance/corrective/03_impact_analysis/todo.cpg.bin`
+Creating working copy of CPG to be safe
+Loading base CPG from: C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\todo.cpg.bin1\cpg.bin.tmp
+[INFO ] initialising from existing storage (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\todo.cpg.bin1\cpg.bin.tmp)
+Overlay dataflowOss already exists - skipping
+The graph has been modified. You may want to use the `save` command to persist changes to disk.  All changes will also be saved collectively on exit
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.ImportsPass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.ImportsPass completed in 95 ms (50% on mutations). 156 + 0 changes committed from 52 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonImportResolverPass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonImportResolverPass completed in 68 ms (6% on mutations). 408 + 0 changes committed from 104 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.DynamicTypeHintFullNamePass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.DynamicTypeHintFullNamePass completed in 49 ms (8% on mutations). 33 + 0 changes committed from 73 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonInheritanceNamePass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonInheritanceNamePass completed in 77 ms (9% on mutations). 26 + 0 changes committed from 10 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeRecovery
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeRecovery completed in 235 ms (2% on mutations). 761 + 0 changes committed from 7 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeRecovery
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeRecovery completed in 61 ms (7% on mutations). 853 + 0 changes committed from 7 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeHintCallLinker
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeHintCallLinker completed in 36 ms (8% on mutations). 30 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.passes.callgraph.NaiveCallLinker
+[INFO ] Pass io.joern.x2cpg.passes.callgraph.NaiveCallLinker completed in 11 ms (7% on mutations). 0 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.passes.base.AstLinkerPass
+[INFO ] Pass io.joern.x2cpg.passes.base.AstLinkerPass completed in 5 ms (21% on mutations). 16 + 0 changes committed from 1 parts.
+=== Callers of get_tasks (blast radius of the search-wildcard bug) ===
+main.py:<module>.read_tasks
+
+=== Call sites of get_tasks (file + line) ===
+main.py:<module>.read_tasks calls get_tasks at main.py:74
+
+=== Everything get_tasks itself calls (what the fix could affect) ===
+<operator>.assignment
+filter
+all
+query
+<operator>.fieldAccess
+<operator>.equals
+<operator>.formatString
+order_by
+<operator>.formattedValue
+<operator>.or
+_escape_like
+desc
+ilike
+[INFO ] writing to storage at `C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\todo.cpg.bin1\cpg.bin.tmp`
+[INFO ] closed graph at C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\todo.cpg.bin1\cpg.bin.tmp
+closing/saving project `todo.cpg.bin1`

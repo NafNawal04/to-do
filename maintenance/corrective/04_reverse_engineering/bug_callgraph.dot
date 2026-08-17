@@ -1,0 +1,26 @@
+// Reverse Engineering: call graph centered on the buggy function crud.get_tasks(),
+// tracing how the LIKE-wildcard-escaping fault originates and propagates.
+digraph bug_call_graph {
+    rankdir=LR;
+    node [shape=box, style="rounded,filled", fillcolor=white, fontname="Segoe UI"];
+    edge [fontname="Segoe UI", fontsize=10];
+
+    client       [label="Client\nGET /api/tasks?search=_", shape=oval, fillcolor=lightgrey];
+    auth_check   [label="auth.get_current_user()"];
+    read_tasks   [label="main.read_tasks()\n(endpoint handler)"];
+    get_tasks    [label="crud.get_tasks()", fillcolor=lightyellow];
+    escape_like  [label="crud._escape_like()\n(the fix)", fillcolor=lightgreen];
+    ilike_title  [label="models.Task.title.ilike()\nFAULT ORIGIN:\nunescaped % / _", fillcolor=salmon];
+    ilike_desc   [label="models.Task.description.ilike()", fillcolor=salmon];
+    sqlite       [label="SQLite LIKE query"];
+
+    client -> read_tasks;
+    read_tasks -> auth_check [label="depends on"];
+    read_tasks -> get_tasks;
+    get_tasks -> escape_like [label="fix: sanitize search\nbefore building pattern", color=darkgreen, fontcolor=darkgreen];
+    get_tasks -> ilike_title [color=red];
+    get_tasks -> ilike_desc [color=red];
+    ilike_title -> sqlite [color=red];
+    ilike_desc -> sqlite [color=red];
+    sqlite -> client [label="pre-fix: wrong task list\npost-fix: correct task list", color=red, style=dashed];
+}
