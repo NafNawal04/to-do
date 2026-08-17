@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 import models
 import schemas
 import auth
-from datetime import datetime, timezone
+import datetime
 
 # User Operations
 def get_user_by_username(db: Session, username: str):
@@ -17,11 +17,6 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 # Task Operations (Isolated by user_id)
-def _escape_like(term: str) -> str:
-    """Escape SQL LIKE/ILIKE wildcard characters so they are matched
-    literally instead of being treated as wildcards (% and _)."""
-    return term.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
-
 def get_tasks(db: Session, user_id: int, status: str = None, priority: str = None, tag: str = None, search: str = None):
     query = db.query(models.Task).filter(models.Task.user_id == user_id)
     if status:
@@ -31,10 +26,9 @@ def get_tasks(db: Session, user_id: int, status: str = None, priority: str = Non
     if tag:
         query = query.filter(models.Task.tag == tag)
     if search:
-        pattern = f"%{_escape_like(search)}%"
         query = query.filter(
-            (models.Task.title.ilike(pattern, escape="\\")) |
-            (models.Task.description.ilike(pattern, escape="\\"))
+            (models.Task.title.ilike(f"%{search}%")) | 
+            (models.Task.description.ilike(f"%{search}%"))
         )
     return query.order_by(models.Task.created_at.desc()).all()
 
@@ -50,7 +44,7 @@ def create_task(db: Session, task: schemas.TaskCreate, user_id: int):
         due_date=task.due_date,
         status="pending",
         user_id=user_id,
-        created_at=datetime.now(timezone.utc)
+        created_at=datetime.datetime.utcnow()
     )
     db.add(db_task)
     db.commit()
@@ -63,7 +57,7 @@ def update_task(db: Session, db_task: models.Task, task_update: schemas.TaskUpda
     # If task status changes, set completed_at
     if "status" in update_data:
         if update_data["status"] == "completed" and db_task.status != "completed":
-            db_task.completed_at = datetime.now(timezone.utc)
+            db_task.completed_at = datetime.datetime.utcnow()
         elif update_data["status"] == "pending" and db_task.status != "pending":
             db_task.completed_at = None
             

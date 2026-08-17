@@ -1,0 +1,5 @@
+Generated token (truncated): eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...
+
+DeprecationWarning(s) raised by auth.create_access_token(): 1
+  DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  at C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\auth.py:42
