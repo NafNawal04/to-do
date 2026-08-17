@@ -1,0 +1,21 @@
+// ---- Cypher: File -> Method -> old API usage (datetime.utcnow) ----
+MERGE (:File {name: "auth.py"});
+MERGE (:File {name: "crud.py"});
+MERGE (:File {name: "models.py"});
+MERGE (:Method {name: "auth.py::create_access_token", usesOldApi: true});
+MERGE (:Method {name: "crud.py::create_task", usesOldApi: true});
+MERGE (:Method {name: "crud.py::update_task", usesOldApi: true});
+MERGE (:Method {name: "models.py::User", usesOldApi: true});
+MERGE (:Method {name: "models.py::Task", usesOldApi: true});
+MATCH (f:File {name: "auth.py"}), (m:Method {name: "auth.py::create_access_token"}) CREATE (f)-[:DEFINES]->(m);
+MATCH (f:File {name: "crud.py"}), (m:Method {name: "crud.py::create_task"}) CREATE (f)-[:DEFINES]->(m);
+MATCH (f:File {name: "crud.py"}), (m:Method {name: "crud.py::update_task"}) CREATE (f)-[:DEFINES]->(m);
+MATCH (f:File {name: "models.py"}), (m:Method {name: "models.py::User"}) CREATE (f)-[:DEFINES]->(m);
+MATCH (f:File {name: "models.py"}), (m:Method {name: "models.py::Task"}) CREATE (f)-[:DEFINES]->(m);
+MATCH (m:Method {name: "auth.py::create_access_token"}) SET m.oldApiLine = 40;
+MATCH (m:Method {name: "auth.py::create_access_token"}) SET m.oldApiLine = 42;
+MATCH (m:Method {name: "crud.py::create_task"}) SET m.oldApiLine = 39;
+MATCH (m:Method {name: "crud.py::create_task"}) SET m.oldApiLine = 47;
+MATCH (m:Method {name: "crud.py::update_task"}) SET m.oldApiLine = 60;
+MATCH (m:Method {name: "models.py::User"}) SET m.oldApiLine = 13;
+MATCH (m:Method {name: "models.py::Task"}) SET m.oldApiLine = 27;

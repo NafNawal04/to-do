@@ -1,0 +1,63 @@
+executing maintenance\adaptive\03_impact_analysis\impact_query.sc
+Creating project `todo_prefix.cpg.bin` for CPG at `maintenance/adaptive/03_impact_analysis/todo_prefix.cpg.bin`
+Creating working copy of CPG to be safe
+Loading base CPG from: C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\todo_prefix.cpg.bin\cpg.bin.tmp
+[INFO ] initialising from existing storage (C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\todo_prefix.cpg.bin\cpg.bin.tmp)
+Overlay dataflowOss already exists - skipping
+The graph has been modified. You may want to use the `save` command to persist changes to disk.  All changes will also be saved collectively on exit
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.ImportsPass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.ImportsPass completed in 82 ms (45% on mutations). 156 + 0 changes committed from 52 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonImportResolverPass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonImportResolverPass completed in 63 ms (5% on mutations). 408 + 0 changes committed from 104 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.DynamicTypeHintFullNamePass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.DynamicTypeHintFullNamePass completed in 56 ms (8% on mutations). 33 + 0 changes committed from 71 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonInheritanceNamePass
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonInheritanceNamePass completed in 56 ms (3% on mutations). 26 + 0 changes committed from 10 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeRecovery
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeRecovery completed in 213 ms (3% on mutations). 755 + 0 changes committed from 7 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeRecovery
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeRecovery completed in 88 ms (3% on mutations). 837 + 0 changes committed from 7 parts.
+[INFO ] Start of pass: io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeHintCallLinker
+[INFO ] Pass io.joern.x2cpg.frontendspecific.pysrc2cpg.PythonTypeHintCallLinker completed in 30 ms (8% on mutations). 30 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.passes.callgraph.NaiveCallLinker
+[INFO ] Pass io.joern.x2cpg.passes.callgraph.NaiveCallLinker completed in 9 ms (10% on mutations). 0 + 0 changes committed from 1 parts.
+[INFO ] Start of pass: io.joern.x2cpg.passes.base.AstLinkerPass
+[INFO ] Pass io.joern.x2cpg.passes.base.AstLinkerPass completed in 4 ms (25% on mutations). 16 + 0 changes committed from 1 parts.
+=== All call sites matching the old API (utcnow) ===
+auth.py:40 in auth.py:<module>.create_access_token  ->  datetime.utcnow
+auth.py:40 in auth.py:<module>.create_access_token  ->  datetime.utcnow()
+auth.py:40 in auth.py:<module>.create_access_token  ->  datetime.utcnow() + expires_delta
+auth.py:40 in auth.py:<module>.create_access_token  ->  expire = datetime.utcnow() + expires_delta
+auth.py:42 in auth.py:<module>.create_access_token  ->  datetime.utcnow
+auth.py:42 in auth.py:<module>.create_access_token  ->  datetime.utcnow()
+auth.py:42 in auth.py:<module>.create_access_token  ->  datetime.utcnow() + timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)
+auth.py:42 in auth.py:<module>.create_access_token  ->  expire = datetime.utcnow() + timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)
+crud.py:47 in crud.py:<module>.create_task  ->  tmp9.utcnow
+crud.py:47 in crud.py:<module>.create_task  ->  datetime.datetime.utcnow()
+crud.py:39 in crud.py:<module>.create_task  ->  models.Task(title = task.title, description = task.description, priority = task.priority, tag = task.tag, due_date = task.due_date, status = "pending", user_id = user_id, created_at = datetime.datetime.utcnow())
+crud.py:39 in crud.py:<module>.create_task  ->  db_task = models.Task(title = task.title, description = task.description, priority = task.priority, tag = task.tag, due_date = task.due_date, status = "pending", user_id = user_id, created_at = datetime.datetime.utcnow())
+crud.py:60 in crud.py:<module>.update_task  ->  tmp10.utcnow
+crud.py:60 in crud.py:<module>.update_task  ->  datetime.datetime.utcnow()
+crud.py:60 in crud.py:<module>.update_task  ->  db_task.completed_at = tmp10 = datetime.datetime
+datetime.datetime.utcnow()
+models.py:13 in models.py:<module>.User.<body>  ->  datetime.datetime.utcnow
+models.py:13 in models.py:<module>.User.<body>  ->  Column(DateTime, default = datetime.datetime.utcnow, nullable = False)
+models.py:13 in models.py:<module>.User.<body>  ->  created_at = Column(DateTime, default = datetime.datetime.utcnow, nullable = False)
+models.py:27 in models.py:<module>.Task.<body>  ->  datetime.datetime.utcnow
+models.py:27 in models.py:<module>.Task.<body>  ->  Column(DateTime, default = datetime.datetime.utcnow, nullable = False)
+models.py:27 in models.py:<module>.Task.<body>  ->  created_at = Column(DateTime, default = datetime.datetime.utcnow, nullable = False)
+
+=== Methods that need to change (containing those call sites) ===
+auth.py:<module>.create_access_token
+crud.py:<module>.create_task
+crud.py:<module>.update_task
+models.py:<module>.User.<body>
+models.py:<module>.Task.<body>
+
+=== Files touched (the adaptation surface) ===
+auth.py
+crud.py
+models.py
+[INFO ] writing to storage at `C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\todo_prefix.cpg.bin\cpg.bin.tmp`
+[INFO ] closed graph at C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\workspace\todo_prefix.cpg.bin\cpg.bin.tmp
+closing/saving project `todo_prefix.cpg.bin`

@@ -1,0 +1,42 @@
+// Reverse Engineering: dependency graph highlighting every module/function
+// that touches the old datetime.utcnow() API (or the related declarative_base
+// import), to visually scope the full adaptation surface.
+digraph migration_surface {
+    rankdir=LR;
+    node [shape=box, style="rounded,filled", fillcolor=white, fontname="Segoe UI"];
+    edge [fontname="Segoe UI", fontsize=10];
+
+    subgraph cluster_auth {
+        label="auth.py"; style=filled; fillcolor="#fff3e0";
+        create_access_token [label="create_access_token()\ndatetime.utcnow() x2\n(lines 40, 42)", fillcolor=salmon];
+    }
+    subgraph cluster_crud {
+        label="crud.py"; style=filled; fillcolor="#fff3e0";
+        create_task [label="create_task()\ndatetime.datetime.utcnow()\n(line 47)", fillcolor=salmon];
+        update_task [label="update_task()\ndatetime.datetime.utcnow()\n(line 60)", fillcolor=salmon];
+        get_tasks_crud [label="get_tasks()\n(untouched by this\nadaptation)", fillcolor="#e0e0e0"];
+    }
+    subgraph cluster_models {
+        label="models.py"; style=filled; fillcolor="#fff3e0";
+        user_model [label="User\ncreated_at default=\ndatetime.datetime.utcnow\n(line 13)", fillcolor=salmon];
+        task_model [label="Task\ncreated_at default=\ndatetime.datetime.utcnow\n(line 27)", fillcolor=salmon];
+    }
+    subgraph cluster_database {
+        label="database.py"; style=filled; fillcolor="#fff3e0";
+        declarative [label="Base = declarative_base()\n(sqlalchemy.ext.declarative\n-> sqlalchemy.orm)", fillcolor=lightyellow];
+    }
+    subgraph cluster_untouched {
+        label="untouched by this adaptation"; style=filled; fillcolor="#f5f5f5";
+        main_py [label="main.py\n(endpoints)", fillcolor="#e0e0e0"];
+        schemas_py [label="schemas.py\n(Pydantic models)", fillcolor="#e0e0e0"];
+    }
+
+    main_py -> create_access_token [style=dashed, label="calls (via login)"];
+    main_py -> create_task [style=dashed, label="calls"];
+    main_py -> update_task [style=dashed, label="calls"];
+    main_py -> get_tasks_crud [style=dashed, label="calls"];
+    user_model -> declarative [label="Base subclass", color="#888"];
+    task_model -> declarative [label="Base subclass", color="#888"];
+
+    legend [shape=note, fillcolor=white, label="salmon = uses old datetime.utcnow()\nyellow = related SQLAlchemy 2.0 import fix\ngrey = in scope of project, NOT affected"];
+}
