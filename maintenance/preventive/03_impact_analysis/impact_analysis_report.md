@@ -1,8 +1,6 @@
 # Impact Analysis — how central is the duplicated pattern in `app.js`?
 
-**Tools:** Joern (CPG generation + CPGQL query) + Neo4j (visualization) +
-SonarQube (file-level measures — see `NEO4J_INSTRUCTIONS.md`, that part
-is yours since it needs your dashboard login)
+**Tools:** Joern (CPG generation + CPGQL query) + Neo4j (visualization)
 
 ## Steps run
 1. Generated a CPG for `static/app.js` alone using Joern's JS frontend
@@ -10,8 +8,8 @@ is yours since it needs your dashboard login)
 2. Queried call fan-out per function and, specifically, which functions
    call `handleLogout()` (the 401-handling branch) and `fetchTasks()`
    (the post-mutation refresh call) — see `impact_query_output.txt`.
-3. Exported the resulting cluster as Cypher for Neo4j — see
-   `NEO4J_INSTRUCTIONS.md`.
+3. Exported the resulting cluster as Cypher, loaded into Neo4j Desktop
+   and screenshotted (`neo4j_impact_analysis.png`).
 
 ## Result — the scope is actually 4 functions, not 3
 Program Comprehension (by hand + AST Explorer) had identified 3

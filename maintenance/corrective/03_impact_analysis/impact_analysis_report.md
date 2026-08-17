@@ -14,9 +14,8 @@
    ```
    Full output in `impact_query_output.txt`.
 3. Extracted the call graph between the project's own functions as Cypher
-   (`export_call_graph.sc` → `neo4j_import_call_graph.cypher`) for loading
-   into Neo4j Desktop — see `NEO4J_INSTRUCTIONS.md` for the remaining
-   manual step (screenshot of the graph view).
+   (`export_call_graph.sc` → `neo4j_import_call_graph.cypher`), loaded
+   into Neo4j Desktop and screenshotted (`neo4j_impact_analysis.png`).
 
 ## Result
 ```

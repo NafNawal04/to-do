@@ -16,8 +16,9 @@ Branch: `perfective/get-tasks-query-indexing` · Fix commit: `e4ba116`
   + SQL compilation account for the bulk of a 7.5ms call.
 - `explanation_report.md` — what the feature does, the performance
   question, and why it matters now rather than later.
-- `AST_EXPLORER_INSTRUCTIONS.md` — **for you**: confirm structurally
-  which 4 columns get equality filters (the indexing candidates).
+- `ast_explorer_get_tasks.png` — AST Explorer screenshot confirming
+  structurally which 4 columns get equality filters (the indexing
+  candidates).
 
 ## 4.2 Change Management — [02_change_management/](02_change_management/)
 - **Tool:** Git
@@ -30,8 +31,7 @@ Branch: `perfective/get-tasks-query-indexing` · Fix commit: `e4ba116`
   (`main.read_tasks`), and surfaces a bonus finding — `get_task()`
   (singular) also filters on `user_id`, so it benefits from the index
   too. No semantic risk: indexes never change query results.
-- `NEO4J_INSTRUCTIONS.md` — **for you**: load the exported Cypher,
-  screenshot the graph.
+- `neo4j_impact_analysis.png` — the resulting Neo4j Browser graph view.
 
 ## 4.4 Reverse Engineering — [04_reverse_engineering/](04_reverse_engineering/)
 - **Tools:** cProfile + Snakeviz

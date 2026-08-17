@@ -17,8 +17,8 @@ Branch: `fix/search-like-wildcard-escape` · Fix commit: `f4dc3cf`
   `f"%{search}%"` pattern build and the (wrong) 4-of-4-tasks return.
 - `explanation_report.md` — what the function should do vs. what it does
   and why.
-- `AST_EXPLORER_INSTRUCTIONS.md` — **for you**: confirm structurally in
-  AST Explorer that no escaping call exists before `ilike()`.
+- `ast_explorer_get_tasks_before_fix.png` — AST Explorer screenshot
+  confirming structurally that no escaping call exists before `ilike()`.
 
 ## 1.2 Change Management — [02_change_management/](02_change_management/)
 - **Tool:** Git
@@ -34,9 +34,8 @@ Branch: `fix/search-like-wildcard-escape` · Fix commit: `f4dc3cf`
 - `impact_query.sc` / `impact_query_output.txt` — CPGQL query showing
   `get_tasks()` has exactly one caller: `main.read_tasks()`.
 - `neo4j_import_call_graph.cypher` — the project's own-function call
-  graph, ready to paste into Neo4j Browser.
-- `NEO4J_INSTRUCTIONS.md` — **for you**: load it into Neo4j Desktop, run
-  the impact query, screenshot the graph.
+  graph, pasted into Neo4j Browser.
+- `neo4j_impact_analysis.png` — the resulting graph view.
 - `impact_analysis_report.md` — interpretation.
 
 ## 1.4 Reverse Engineering — [04_reverse_engineering/](04_reverse_engineering/)
@@ -51,7 +50,5 @@ Branch: `fix/search-like-wildcard-escape` · Fix commit: `f4dc3cf`
   (`search="_"` and `search="%"`) re-traced after the fix, both now
   return the correct task count.
 - `refactoring_report.md` — before/after comparison table.
-- `SONARQUBE_INSTRUCTIONS.md` — **for you**: run the SonarQube Cloud scan
-  (GitHub Action, already scaffolded — see `sonar-project.properties` and
-  `.github/workflows/build.yml` — or the `sonar-scanner` CLI) on the fix
-  branch and confirm no new bugs/smells.
+- `sonarqube_result.png` — SonarQube Cloud scan result (GitHub Action /
+  `sonar-project.properties` setup), confirming no new bugs/smells.

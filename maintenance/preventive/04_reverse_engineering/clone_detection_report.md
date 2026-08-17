@@ -1,7 +1,8 @@
 # Reverse Engineering — CCFinderSW clone detection on `app.js`
 
-**Tool:** CCFinderSW 1.0 (`-l java` fallback + `.java`-extension trick,
-see `CCFINDERSW_INSTRUCTIONS.md` for why)
+**Tool:** CCFinderSW 1.0 (`-l java` fallback + `.java`-extension trick —
+no native JavaScript ruleset in this install; Java's brace/semicolon/
+comment syntax tokenizes JS files close enough to work)
 **Command:** `CCFinderSW.bat D -d js_as_java -l java -o appjs_clones -ccfsw pair -t 30`
 **Result:** `LOC = 653, Token = 4235`, **132 clone-pair entries** (66
 unique pairs — each is listed twice, forward and reversed) — full

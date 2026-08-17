@@ -10,8 +10,9 @@
 2. Queried the CPG for every call site whose code matches `.*utcnow.*`
    (`impact_query.sc`) — full output in `impact_query_output.txt`.
 3. Exported the file → method adaptation surface as Cypher
-   (`export_impact_graph.sc` → `neo4j_import_impact_graph.cypher`) for
-   Neo4j Desktop — see `NEO4J_INSTRUCTIONS.md`.
+   (`export_impact_graph.sc` → `neo4j_import_impact_graph.cypher`),
+   loaded into Neo4j Desktop and screenshotted
+   (`neo4j_impact_analysis.png`).
 
 ## Result
 ```

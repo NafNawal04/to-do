@@ -8,7 +8,8 @@
 2. Queried callers of `get_tasks()` and every reference to the 4
    columns proposed for indexing — `impact_query.sc` /
    `impact_query_output.txt`.
-3. Exported the result as Cypher for Neo4j — `NEO4J_INSTRUCTIONS.md`.
+3. Exported the result as Cypher, loaded into Neo4j Desktop and
+   screenshotted (`neo4j_impact_analysis.png`).
 
 ## Result
 ```

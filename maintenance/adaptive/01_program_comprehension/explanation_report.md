@@ -19,7 +19,7 @@ Reproduced directly: `reproduce_deprecation.py` calls
 `deprecation_warning_output.txt`.
 
 ## Which parts are dependency/environment-specific
-AST inspection (see `AST_EXPLORER_INSTRUCTIONS.md`) of
+AST inspection (screenshot: `ast_explorer_create_access_token.png`) of
 `auth.create_access_token()` shows the tie to the old API is exactly two
 `Call` nodes — `datetime.utcnow()` at lines 40 and 42 — each feeding
 directly into a `BinOp` (`+`) with a `timedelta`, whose result becomes the

@@ -17,8 +17,9 @@ Branch: `adapt/datetime-utcnow-upgrade` · Fix commit: `b177ef7`
   naive datetimes are read as *local* time by `.timestamp()` (used
   internally by PyJWT), so JWT expiry was silently wrong by several
   hours on non-UTC servers — verified directly on this machine.
-- `AST_EXPLORER_INSTRUCTIONS.md` — **for you**: confirm structurally in
-  AST Explorer which nodes tie `create_access_token` to the old API.
+- `ast_explorer_create_access_token.png` — AST Explorer screenshot
+  confirming structurally which nodes tie `create_access_token` to the
+  old API.
 
 ## 2.2 Change Management — [02_change_management/](02_change_management/)
 - **Tool:** Git
@@ -36,8 +37,8 @@ Branch: `adapt/datetime-utcnow-upgrade` · Fix commit: `b177ef7`
 - CPG generated from the **pre-fix** source (to scope the change, not
   audit it after the fact). CPGQL query confirms the adaptation surface
   is exactly 3 files / 5 functions / 6 call sites — nothing missed.
-- `neo4j_import_impact_graph.cypher` — ready to paste into Neo4j Browser.
-- `NEO4J_INSTRUCTIONS.md` — **for you**: load it, screenshot the graph.
+- `neo4j_import_impact_graph.cypher` — pasted into Neo4j Browser.
+- `neo4j_impact_analysis.png` — the resulting graph view.
 
 ## 2.4 Reverse Engineering — [04_reverse_engineering/](04_reverse_engineering/)
 - **Tool:** Graphviz
@@ -50,6 +51,6 @@ Branch: `adapt/datetime-utcnow-upgrade` · Fix commit: `b177ef7`
 - `verify_no_deprecation.py` — automated check: the two targeted
   deprecation warnings are gone; unrelated (out-of-scope) warnings are
   called out explicitly rather than silently ignored.
-- `SONARQUBE_INSTRUCTIONS.md` — **for you**: run the same GitHub Actions
-  or `npx @sonar/scan` route as the corrective-maintenance cell (config
-  already brought onto this branch) and confirm no new issues.
+- `sonarqube_result.png` — SonarQube Cloud scan result (`npx @sonar/scan`,
+  same setup as the corrective-maintenance branch), confirming no new
+  issues.

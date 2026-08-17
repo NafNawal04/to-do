@@ -29,8 +29,9 @@ verbatim three times — `handleTaskSubmit()` (lines 359-389),
 5. Catch any error and `console.error()` it.
 
 `toggleTaskStatus()` and `deleteTask()` in particular are near-exact
-structural duplicates (confirmed via AST Explorer — see
-`AST_EXPLORER_INSTRUCTIONS.md` — both produce the same
+structural duplicates (confirmed via AST Explorer — screenshots
+`ast_explorer_toggleTaskStatus.png` / `ast_explorer_deleteTask.png` in
+this folder — both produce the same
 `TryStatement`/`IfStatement`/`CatchClause` tree shape, differing only in
 the HTTP method, URL, and error-message string literals).
 

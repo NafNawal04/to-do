@@ -42,11 +42,11 @@ shows exactly this:
   contains an underscore.
 
 The root cause is a **missing escape step** before the search term is
-interpolated into the `LIKE` pattern — the AST view of this function (see
-`AST_EXPLORER_INSTRUCTIONS.md`) shows there is only a single `if search:`
-branch with no call to any escaping/sanitizing helper before the
-`ilike()` calls, confirming structurally that no such step exists anywhere
-in the function.
+interpolated into the `LIKE` pattern — the AST view of this function
+(screenshot: `ast_explorer_get_tasks_before_fix.png`) shows there is
+only a single `if search:` branch with no call to any escaping/
+sanitizing helper before the `ilike()` calls, confirming structurally
+that no such step exists anywhere in the function.
 
 ## Fix direction (applied in the Refactoring step)
 Escape `%`, `_`, and the escape character itself in `search` before
