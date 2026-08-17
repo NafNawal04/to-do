@@ -1,0 +1,8 @@
+  OK: auth header merged into request
+  OK: caller-supplied options (method) preserved
+  OK: success path returns the response object
+  OK: 401 triggers handleLogout()
+  OK: 401 returns null (caller does "if (!response) return;")
+  OK: non-401 error throws with the right message
+
+6 assertions passed.
