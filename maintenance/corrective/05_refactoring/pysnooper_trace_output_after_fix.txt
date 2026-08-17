@@ -1,0 +1,69 @@
+Source path:... <string>
+Starting var:.. db = <sqlalchemy.orm.session.Session object at 0x000001BF7F911010>
+Starting var:.. user_id = 1
+Starting var:.. search_term = '_'
+23:53:40.389736 call        22 SOURCE IS UNAVAILABLE
+23:53:40.392956 line        24 SOURCE IS UNAVAILABLE
+    Source path:... C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\crud.py
+    Starting var:.. db = <sqlalchemy.orm.session.Session object at 0x000001BF7F911010>
+    Starting var:.. user_id = 1
+    Starting var:.. status = None
+    Starting var:.. priority = None
+    Starting var:.. tag = None
+    Starting var:.. search = '_'
+    23:53:40.393459 call        25 def get_tasks(db: Session, user_id: int, status: str = None, priority: str = None, tag: str = None, search: str = None):
+    23:53:40.397215 line        26     query = db.query(models.Task).filter(models.Task.user_id == user_id)
+    New var:....... query = <sqlalchemy.orm.query.Query object at 0x000001BF7F973750>
+    23:53:40.399510 line        27     if status:
+    23:53:40.400592 line        29     if priority:
+    23:53:40.401161 line        31     if tag:
+    23:53:40.401579 line        33     if search:
+    23:53:40.401869 line        34         pattern = f"%{_escape_like(search)}%"
+    New var:....... pattern = '%\\_%'
+    23:53:40.402183 line        35         query = query.filter(
+    23:53:40.402837 line        36             (models.Task.title.ilike(pattern, escape="\\")) |
+    23:53:40.403752 line        37             (models.Task.description.ilike(pattern, escape="\\"))
+    23:53:40.404656 line        36             (models.Task.title.ilike(pattern, escape="\\")) |
+    23:53:40.405325 line        35         query = query.filter(
+    Modified var:.. query = <sqlalchemy.orm.query.Query object at 0x000001BF7F973890>
+    23:53:40.405730 line        39     return query.order_by(models.Task.created_at.desc()).all()
+    23:53:40.415028 return      39     return query.order_by(models.Task.created_at.desc()).all()
+    Return value:.. [<models.Task object at 0x000001BF7F9FCD60>]
+Source path:... <string>
+23:53:40.415862 return      24 SOURCE IS UNAVAILABLE
+Return value:.. [<models.Task object at 0x000001BF7F9FCD60>]
+Elapsed time: 00:00:00.028411
+Starting var:.. db = <sqlalchemy.orm.session.Session object at 0x000001BF7F911010>
+Starting var:.. user_id = 1
+Starting var:.. search_term = '%'
+23:53:40.417514 call        22 SOURCE IS UNAVAILABLE
+23:53:40.418585 line        24 SOURCE IS UNAVAILABLE
+    Source path:... C:\Users\MEHEDUL IT\OneDrive\Desktop\to-do\crud.py
+    Starting var:.. db = <sqlalchemy.orm.session.Session object at 0x000001BF7F911010>
+    Starting var:.. user_id = 1
+    Starting var:.. status = None
+    Starting var:.. priority = None
+    Starting var:.. tag = None
+    Starting var:.. search = '%'
+    23:53:40.418905 call        25 def get_tasks(db: Session, user_id: int, status: str = None, priority: str = None, tag: str = None, search: str = None):
+    23:53:40.421231 line        26     query = db.query(models.Task).filter(models.Task.user_id == user_id)
+    New var:....... query = <sqlalchemy.orm.query.Query object at 0x000001BF7F9CDC70>
+    23:53:40.421918 line        27     if status:
+    23:53:40.422583 line        29     if priority:
+    23:53:40.422894 line        31     if tag:
+    23:53:40.423418 line        33     if search:
+    23:53:40.423828 line        34         pattern = f"%{_escape_like(search)}%"
+    New var:....... pattern = '%\\%%'
+    23:53:40.424242 line        35         query = query.filter(
+    23:53:40.424970 line        36             (models.Task.title.ilike(pattern, escape="\\")) |
+    23:53:40.425505 line        37             (models.Task.description.ilike(pattern, escape="\\"))
+    23:53:40.426062 line        36             (models.Task.title.ilike(pattern, escape="\\")) |
+    23:53:40.426530 line        35         query = query.filter(
+    Modified var:.. query = <sqlalchemy.orm.query.Query object at 0x000001BF7F9759D0>
+    23:53:40.426890 line        39     return query.order_by(models.Task.created_at.desc()).all()
+    23:53:40.428679 return      39     return query.order_by(models.Task.created_at.desc()).all()
+    Return value:.. []
+Source path:... <string>
+23:53:40.429350 return      24 SOURCE IS UNAVAILABLE
+Return value:.. []
+Elapsed time: 00:00:00.013070
